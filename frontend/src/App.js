@@ -4,6 +4,7 @@ import { Checkbox } from "antd";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+// import dotenv from "dotenv";
 import {
   Form,
   Container,
@@ -19,6 +20,8 @@ function App() {
   const [checked, setchecked] = useState([]);
   const [task, settask] = useState("");
 
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
+
   const categorie = [
     { name: "abgij", marked: true },
     { name: "anuj", marked: false },
@@ -26,7 +29,7 @@ function App() {
 
   const getAllTask = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8080/user/alltask");
+      const { data } = await axios.get(`${BASE_URL}/user/alltask`);
       setcategories(data.data);
     } catch (error) {
       console.log(error);
@@ -36,7 +39,7 @@ function App() {
 
   const handleAdd = async () => {
     try {
-      const { data } = await axios.post("http://localhost:8080/user/addtask", {
+      const { data } = await axios.post(`${BASE_URL}/user/addtask`, {
         name: task,
       });
       console.log(task);
@@ -47,10 +50,9 @@ function App() {
 
   const handleUpdate = async (marked, id) => {
     console.log(`update encountered ${id} and ${marked}`);
-    const { data } = await axios.put(
-      `http://localhost:8080/user/updatetask/${id}`,
-      { marked }
-    );
+    const { data } = await axios.put(`${BASE_URL}/user/updatetask/${id}`, {
+      marked,
+    });
     if (data?.success) {
       toast.success("Product create successfully!!!");
     } else {
@@ -60,9 +62,7 @@ function App() {
 
   const handledelete = async (id) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:8080/user/deletetask/${id}`
-      );
+      const response = await axios.delete(`${BASE_URL}/user/deletetask/${id}`);
       console.log("dfgf");
     } catch (error) {
       console.log(error);
