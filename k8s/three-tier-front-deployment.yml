@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: three-tier-app-deployment
+  labels:
+    app: three-tier-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: three-tier-app
+  template:
+    metadata:
+      labels:
+        app: three-tier-app
+    spec:
+      containers:
+        - name: three-tier-app-ctr
+          image: abhijitgwad/todofrontend:latest
+          env:
+            - name: REACT_APP_BASE_URL
+              value: "http://54.242.28.48:30007"
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Always

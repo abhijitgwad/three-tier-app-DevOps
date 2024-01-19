@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: three-tier-app-back-deployment
+  labels:
+    app: three-tier-back-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: three-tier-back-app
+  template:
+    metadata:
+      labels:
+        app: three-tier-back-app
+    spec:
+      dnsPolicy: Default
+      containers:
+        - name: three-tier-app-back-ctr
+          image: abhijitgwad/todobackend:1.0
+          env:
+            - name: PORT
+              value: "8080"
+            - name: MONGO_URL
+              value: "mongodb://admin:password@mongodb/admin"
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Always
+

@@ -21,6 +21,7 @@ function App() {
   const [task, settask] = useState("");
 
   const BASE_URL = process.env.REACT_APP_BASE_URL;
+  // const BASE_URL = 'http://todobackend2:8080/'
 
   const categorie = [
     { name: "abgij", marked: true },
@@ -29,7 +30,7 @@ function App() {
 
   const getAllTask = async () => {
     try {
-      const { data } = await axios.get(`${BASE_URL}/user/alltask`);
+      const { data } = await axios.get(`http://localhost:8080/user/alltask`);
       setcategories(data.data);
     } catch (error) {
       console.log(error);
@@ -39,7 +40,7 @@ function App() {
 
   const handleAdd = async () => {
     try {
-      const { data } = await axios.post(`${BASE_URL}/user/addtask`, {
+      const { data } = await axios.post(`http://localhost:8080/user/addtask`, {
         name: task,
       });
       console.log(task);
@@ -50,9 +51,12 @@ function App() {
 
   const handleUpdate = async (marked, id) => {
     console.log(`update encountered ${id} and ${marked}`);
-    const { data } = await axios.put(`${BASE_URL}/user/updatetask/${id}`, {
-      marked,
-    });
+    const { data } = await axios.put(
+      `http://localhost:8080/user/updatetask/${id}`,
+      {
+        marked,
+      }
+    );
     if (data?.success) {
       toast.success("Product create successfully!!!");
     } else {
@@ -62,9 +66,12 @@ function App() {
 
   const handledelete = async (id) => {
     try {
-      const response = await axios.delete(`${BASE_URL}/user/deletetask/${id}`);
+      const response = await axios.delete(
+        `http://localhost:8080/user/deletetask/${id}`
+      );
       console.log("dfgf");
     } catch (error) {
+      bu;
       console.log(error);
     }
   };

@@ -1,0 +1,26 @@
+version: "3"
+services:
+  todofrontend2:
+    image: todofrontend2:2.0
+    stdin_open: true
+    ports:
+      - 3000:3000
+  todobackend2:
+    image: todobackend2:2.0
+    ports:
+      - 8080:8080
+  # mongodb:
+  #   image: mongo
+  #   ports:
+  #     - 1313:27017
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=admin
+  #     - MONGO_INITDB_ROOT_PASSWORD=password
+  # mongo-express:
+  #   image: mongo-express
+  #   ports:
+  #     - 8081:8081
+  #   environment:
+  #     - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+  #     - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+  #     - ME_CONFIG_MONGODB_SERVER=mongodb
